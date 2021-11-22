@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      button {
+        margin-bottom: 1rem;
+        height: 2rem;
+        background-color: #ffffff;
+        border: 1px solid #222222;
+        border-radius: 8px;
+        box-sizing: border-box;
+        color: #222222;
+        cursor: pointer;
+        display: inline-block;
+        font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
+          "Helvetica Neue", sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 20px;
+        outline: none;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        touch-action: manipulation;
+        transition: box-shadow 0.2s, -ms-transform 0.1s, -webkit-transform 0.1s,
+          transform 0.1s;
+        user-select: none;
+        -webkit-user-select: none;
+        width: 49%;
+      }
+
+      .button-23:focus-visible {
+        box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
+        transition: box-shadow 0.2s;
+      }
+
+      .button-23:active {
+        background-color: #f7f7f7;
+        border-color: #000000;
+        transform: scale(0.96);
+      }
+
+      .button-23:disabled {
+        border-color: #dddddd;
+        color: #dddddd;
+        cursor: not-allowed;
+        opacity: 1;
+      }
+
+      textarea {
+        -moz-border-bottom-colors: none;
+        -moz-border-left-colors: none;
+        -moz-border-right-colors: none;
+        -moz-border-top-colors: none;
+        background: none repeat scroll 0 0 rgba(0, 0, 0, 0.07);
+        border-color: -moz-use-text-color #ffffff #ffffff -moz-use-text-color;
+        border-image: none;
+        border-radius: 6px 6px 6px 6px;
+        border-style: none solid solid none;
+        border-width: medium 1px 1px medium;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
+        color: #555555;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 1em;
+        line-height: 1.4em;
+        transition: background-color 0.2s ease 0s;
+        height: 70vh;
+      }
+
+      textarea:focus {
+        background: none repeat scroll 0 0 #ffffff;
+        outline-width: 0;
+      }
+    </style>
+    <title>Mocking Birds Editor</title>
+  </head>
+  <body>
+    <button id="button">Evaluate</button>
+    <button id="help">Help</button>
+    <textarea
+      style="width: 100%"
+      type="text"
+      id="input"
+      value=""
+    ></textarea>
+    <p id="result">result | result === T</p>
+  </body>
+  <script>
+    var input = document.getElementById("input");
+    var button = document.getElementById("button");
+
+    var I = (x) => x;
+    var K = (x) => (y) => x;
+    var A = (f) => (x) => f(x);
+    var T = (x) => (f) => f(x);
+    var W = (f) => (x) => f(x)(x);
+    var C = (f) => (y) => (x) => f(x)(y);
+    var B = (f) => (g) => (x) => f(g(x));
+    var S = (f) => (g) => (x) => f(x)(g(x));
+    var S_ = (f) => (g) => (x) => f(g(x))(x);
+    var S2 = (f) => (g) => (h) => (x) => f(g(x))(h(x));
+    var P = (f) => (g) => (x) => (y) => f(g(x))(g(y));
+    var Y = (f) => ((g) => g(g))((g) => f((x) => g(g)(x)));
+    var D = (a) => (b) => (c) => (d) => a(b)(c(d));
+    var E = (a) => (b) => (c) => (d) => (e) => a(b)(c(d)(e));
+    var F = (a) => (b) => (c) => c(b)(a);
+    var G = (a) => (b) => (c) => (d) => a(d)(b(c));
+    var H = (a) => (b) => (c) => a(b)(c)(b);
+    var J = (a) => (b) => (c) => (d) => a(b)(a(d)(c));
+    var L = (a) => (b) => a(b(b));
+    var M = (a) => a(a);
+    var O = (a) => (b) => b(a(b));
+    var Q = (a) => (b) => (c) => b(a(c));
+    var R = (a) => (b) => (c) => b(c(a));
+    var U = (a) => (b) => b(a(a)(b));
+    var V = (a) => (b) => (c) => c(a)(b);
+
+    var T = K;
+    var F = K(I);
+
+    var AND = (x) => (y) => x(y)(x);
+    var OR = (x) => (y) => x(x)(y);
+    var NOT = (x) => x(F)(T);
+    var BEQ = (x) => (y) => x(y)(NOT(y));
+
+    input.addEventListener("keyup", function (e) {
+      input.value = input.value
+        .split()
+        .map((f) =>
+          f in
+          [
+            "I",
+            "K",
+            "A",
+            "T",
+            "W",
+            "C",
+            "B",
+            "S",
+            "S_",
+            "S2",
+            "P",
+            "Y",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H",
+            "J",
+            "L",
+            "M",
+            "O",
+            "Q",
+            "R",
+            "U",
+            "V",
+            "T",
+            "F",
+          ]
+            ? f.toUpperCase()
+            : f
+        );
+    });
+    button.addEventListener("click", function () {
+      var code = input.value;
+      var lines = code
+        .split("\n")
+        .map((x) =>
+          x.indexOf("=") > 0 && x.indexOf("==") < 0 && x.indexOf("=>") < 0
+            ? "var " + x
+            : x
+        )
+        .join("\n");
+      try {
+        console.log(lines);
+        var result = eval(lines);
+        document.getElementById("result").innerHTML =
+          result.toString() + " <br> (result === T) :" + (result === T);
+      } catch (e) {
+        document.getElementById("result").innerHTML = e.toString();
+      }
+    });
+
+    var helpContent = `I  = x => x
+K  = x => y => x
+A  = f => x => f (x)
+T  = x => f => f (x)
+W  = f => x => f (x) (x)
+C  = f => y => x => f (x) (y)
+B  = f => g => x => f (g (x))
+S  = f => g => x => f (x) (g (x))
+S_ = f => g => x => f (g (x)) (x)
+S2 = f => g => h => x => f (g (x)) (h (x))
+P  = f => g => x => y => f (g (x)) (g (y))
+Y  = f => (g => g (g)) (g => f (x => g (g) (x)))
+D  = a => b => c => d => a(b)(c(d))
+E  = a => b => c => d => e => a(b)(c(d)(e))
+F  = a => b => c => c(b)(a)
+G  = a => b => c => d => a(d)(b(c))
+H  = a => b => c => a(b)(c)(b)
+J  = a => b => c => d => a(b)(a(d)(c))
+L  = a => b => a(b(b))
+M  = a => a(a)
+O  = a => b => b(a(b))
+Q  = a => b => c => b(a(c))
+R  = a => b => c => b(c(a))
+U  = a => b => b(a(a)(b))
+V  = a => b => c => c(a)(b)
+
+T = K
+F = K(I)
+AND = x => y => x(y)(x)
+OR = x => y => x(x)(y)
+NOT = x => x(F)(T)
+BEQ = x => y => x(y)(NOT(y))`;
+    var help = document.getElementById("help");
+    help.addEventListener("click", function () {
+      alert(helpContent);
+    });
+  </script>
+</html>
